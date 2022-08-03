@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="product"
+            type="com.example.fooddelivery.model.Product" />
+        
+        <variable
+            name="shopInterface"
+            type="com.example.fooddelivery.adapter.ShopListAdapter.ShopInterface" />
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:onClick="@{() -> shopInterface.onItemClick(product)}">
+
+        <ImageView
+            android:id="@+id/productimageView4"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/twofood"
+            android:productImage="@{product.imageUrl}"
+            />
+
+        <TextView
+            android:id="@+id/productnametextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{product.name}"
+            android:layout_gravity="center"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+
+            />
+
+        <TextView
+            android:id="@+id/pricetextView"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:text="@{String.valueOf(product.price)+`₹`}"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
+
+
+        <TextView
+            android:id="@+id/availabletextView"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:text="@{product.available ? `Available` : `Out of stock`}"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+            android:textColor="@{product.available ? @color/colorPrimary : @color/red}" />
+
+        <Button
+            android:id="@+id/addtocartbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add to Cart"
+            android:enabled="@{product.available }"
+            android:onClick="@{() -> shopInterface.addItem(product)}"
+            android:layout_gravity="center"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+            style="@style/Widget.MaterialComponents.Button.TextButton" />
+    </LinearLayout>
+</layout>
